@@ -1,0 +1,7 @@
+# gdb_commands.txt
+set pagination off
+set breakpoint pending on
+info functions
+define hook-stop
+  backtrace 1
+end
