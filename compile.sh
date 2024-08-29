@@ -1,19 +1,19 @@
-CLANG=$DATA/LLVM/install/clang/bin/clang++
-CLANG_INC=$DATA/LLVM/install/clang/include/
-CLANG_LIB=$DATA/LLVM/install/clang/lib/
-OMP_INC=$DATA/LLVM/install/omp/include/
-OMP_LIB=$DATA/LLVM/install/omp/lib/
-LLVM=$DATA/LLVM/install/llvm/bin/
-LLVM_LIB=$DATA/LLVM/install/llvm/lib/
-LLVM_INC=$DATA/LLVM/install/llvm/include/
+MODE=Release
 
-CURR_DIR=/home/joao.fernandes/LLVM/basic-case
+CLANG=$HOME/LLVM/install/$MODE/clang/bin/clang++
+CLANG_INC=$HOME/LLVM/install/$MODE/clang/include/
+CLANG_LIB=$HOME/LLVM/install/$MODE/clang/lib/
+OMP_INC=$HOME/LLVM/install/$MODE/omp/include/
+OMP_LIB=$HOME/LLVM/install/$MODE/omp/lib/
+LLVM=$HOME/LLVM/install/$MODE/llvm/bin/
+LLVM_LIB=$HOME/LLVM/install/$MODE/llvm/lib/
+LLVM_INC=$HOME/LLVM/install/$MODE/llvm/include/
 
-export LD_LIBRARY_PATH=$DATA/LLVM/install/llvm/lib/:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$DATA/LLVM/install/clang/lib/:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$DATA/LLVM/install/omp/lib/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$HOME/LLVM/install/$MODE/llvm/lib/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$HOME/LLVM/install/$MODE/clang/lib/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$HOME/LLVM/install/$MODE/omp/lib/:$LD_LIBRARY_PATH
 
-# ${CLANG} -g -L${OMP_LIB} -L${LLVM_LIB} -I${OMP_INC} -I${LLVM_INC} -lomp -fopenmp src/basic-case.cpp -o basic-case || exit 1
+# ${CLANG} -g -L${OMP_LIB} -L${LLVM_LIB} -I${OMP_INC} -I${LLVM_INC} -lomp -fopenmp src/test-basic-case.cpp -o $FILE
 # ${CLANG} -g -L${OMP_LIB} -L${LLVM_LIB} -I${OMP_INC} -I${LLVM_INC} -lomp -fopenmp src/test-sched-case.cpp -o basic-sched
 
 # ${CLANG} -O -I${OMP_INC} -I${LLVM_INC} -Xclang -disable-llvm-optzns -g0 -fno-discard-value-names test-basic-case.cpp -emit-llvm -c -o test.bc
