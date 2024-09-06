@@ -8,12 +8,14 @@
 #ifndef N
 #define N 2001
 #endif
-#ifndef MAX_ITER
-#define MAX_ITER 1000
+#ifndef S
+#define S 1000
 #endif
 #ifndef SCHED
-#define SCHED dynamic,auto
+#define SCHED dynamic, auto
 #endif
+
+#define MAX_ITER S
 
 int PARAM_AMOUNT;
 
@@ -77,15 +79,15 @@ void solve_parallel(double **A, int n) {
   int iters;
   double diff;
 
-  printf("\n\n-----------------------Parallel Red Black "
-         "Solver-----------------------\n\n\n");
+  // printf("\n\n-----------------------Parallel Red Black "
+  //        "Solver-----------------------\n\n\n");
 
   for (iters = 1; iters < MAX_ITER; ++iters) {
     diff = matrix_calculation(A, N - 1);
   }
 
-  printf("Difference after %3d iterations: %f\n", iters, diff);
-  printf("\n\nIteration LIMIT Reached...Exiting\n\n");
+  // printf("Difference after %3d iterations: %f\n", iters, diff);
+  // printf("\n\nIteration LIMIT Reached...Exiting\n\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -111,8 +113,8 @@ int main(int argc, char *argv[]) {
   solve_parallel(A, N - 1);
   t_end = omp_get_wtime();
 
-  printf("Computation time for Parallel approach(secs) on %i threads: %f\n\n",
-         omp_get_max_threads(), t_end - t_start);
+  printf("Computation time on %i threads: %f\n\n", omp_get_max_threads(),
+         t_end - t_start);
 
   // for (i = 0; i < omp_get_max_threads(); ++i) {
   //   printf("Thread %d: %f\n", i, thread_time[i]);

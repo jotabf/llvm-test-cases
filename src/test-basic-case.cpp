@@ -4,7 +4,7 @@
 int main() {
 
   int a = 0;
-#pragma omp parallel
+#pragma omp parallel 
   { a++; }
 
   printf("a = %d\n", a);

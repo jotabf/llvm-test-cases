@@ -2,7 +2,7 @@
 #include <iostream>
 #include <omp.h>
 #include <unistd.h>
-#include <vector>
+#include <algorithm>
 
 #ifndef SCHED
 #define SCHED dynamic, auto
@@ -13,7 +13,11 @@
 #ifndef S
 #define S 2000
 #endif
+#ifndef B
+#define B 10
+#endif
 
+const int boundary = 0;     // Absorbent boundary size
 const int gridsize = N;     // Grid size
 const int samples = S;      // Number of time steps
 const double c = 1.0;       // Wave speed
@@ -35,6 +39,10 @@ void initialize() {
     u[i] = new double[gridsize];
     u_prev[i] = new double[gridsize];
     u_next[i] = new double[gridsize];
+
+    std::fill(u[i], u[i] + gridsize, 0.0);
+    std::fill(u_prev[i], u_prev[i] + gridsize, 0.0);
+    std::fill(u_next[i], u_next[i] + gridsize, 0.0);
   }
   // Initial conditions: a pulse in the center
   int cx = gridsize / 2, cy = gridsize / 2;
@@ -52,6 +60,11 @@ void update_wave() {
         u_next[i][j] = 2 * u[i][j] - u_prev[i][j] +
                        coeff * (u[i + 1][j] + u[i - 1][j] + u[i][j + 1] +
                                 u[i][j - 1] - 4 * u[i][j]);
+
+        // Apply boundary conditions
+        if (i < boundary || i >= gridsize - boundary || j < boundary ||
+            j >= gridsize - boundary)
+          u_next[i][j] *= (1 - lambda);
       }
     }
 
